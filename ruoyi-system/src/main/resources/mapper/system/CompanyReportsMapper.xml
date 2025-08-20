@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CompanyReportsMapper">
+    
+    <resultMap type="CompanyReports" id="CompanyReportsResult">
+        <result property="id"    column="id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="listingPlace"    column="listing_place"    />
+        <result property="ipoDate"    column="ipo_date"    />
+        <result property="reportStatus"    column="report_status"    />
+        <result property="report"    column="report"    />
+        <result property="generatorTool"    column="generator_tool"    />
+        <result property="reportPrompt"    column="report_prompt"    />
+        <result property="generatorModel"    column="generator_model"    />
+        <result property="originSummary"    column="origin_summary"    />
+    </resultMap>
+
+    <sql id="selectCompanyReportsVo">
+        select id, company_name, listing_place, ipo_date, report_status, report, generator_tool, report_prompt, generator_model, origin_summary from company_reports
+    </sql>
+
+    <select id="selectCompanyReportsList" parameterType="CompanyReports" resultMap="CompanyReportsResult">
+        <include refid="selectCompanyReportsVo"/>
+        <where>  
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="listingPlace != null  and listingPlace != ''"> and listing_place = #{listingPlace}</if>
+            <if test="ipoDate != null "> and ipo_date = #{ipoDate}</if>
+            <if test="reportStatus != null  and reportStatus != ''"> and report_status = #{reportStatus}</if>
+            <if test="report != null  and report != ''"> and report = #{report}</if>
+            <if test="generatorTool != null  and generatorTool != ''"> and generator_tool = #{generatorTool}</if>
+            <if test="reportPrompt != null  and reportPrompt != ''"> and report_prompt = #{reportPrompt}</if>
+            <if test="generatorModel != null  and generatorModel != ''"> and generator_model = #{generatorModel}</if>
+            <if test="originSummary != null  and originSummary != ''"> and origin_summary = #{originSummary}</if>
+        </where>
+    </select>
+    
+    <select id="selectCompanyReportsById" parameterType="String" resultMap="CompanyReportsResult">
+        <include refid="selectCompanyReportsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCompanyReports" parameterType="CompanyReports" useGeneratedKeys="true" keyProperty="id">
+        insert into company_reports
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="listingPlace != null and listingPlace != ''">listing_place,</if>
+            <if test="ipoDate != null">ipo_date,</if>
+            <if test="reportStatus != null and reportStatus != ''">report_status,</if>
+            <if test="report != null">report,</if>
+            <if test="generatorTool != null">generator_tool,</if>
+            <if test="reportPrompt != null">report_prompt,</if>
+            <if test="generatorModel != null">generator_model,</if>
+            <if test="originSummary != null">origin_summary,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="listingPlace != null and listingPlace != ''">#{listingPlace},</if>
+            <if test="ipoDate != null">#{ipoDate},</if>
+            <if test="reportStatus != null and reportStatus != ''">#{reportStatus},</if>
+            <if test="report != null">#{report},</if>
+            <if test="generatorTool != null">#{generatorTool},</if>
+            <if test="reportPrompt != null">#{reportPrompt},</if>
+            <if test="generatorModel != null">#{generatorModel},</if>
+            <if test="originSummary != null">#{originSummary},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCompanyReports" parameterType="CompanyReports">
+        update company_reports
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="listingPlace != null and listingPlace != ''">listing_place = #{listingPlace},</if>
+            <if test="ipoDate != null">ipo_date = #{ipoDate},</if>
+            <if test="reportStatus != null and reportStatus != ''">report_status = #{reportStatus},</if>
+            <if test="report != null">report = #{report},</if>
+            <if test="generatorTool != null">generator_tool = #{generatorTool},</if>
+            <if test="reportPrompt != null">report_prompt = #{reportPrompt},</if>
+            <if test="generatorModel != null">generator_model = #{generatorModel},</if>
+            <if test="originSummary != null">origin_summary = #{originSummary},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCompanyReportsById" parameterType="String">
+        delete from company_reports where id = #{id}
+    </delete>
+
+    <delete id="deleteCompanyReportsByIds" parameterType="String">
+        delete from company_reports where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
