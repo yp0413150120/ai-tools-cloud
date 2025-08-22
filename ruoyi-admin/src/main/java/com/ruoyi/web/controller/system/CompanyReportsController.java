@@ -1,4 +1,4 @@
-package com.ruoyi.system.controller;
+package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +17,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.system.domain.CompanyReports;
+import com.ruoyi.system.domain.dto.CompanyReportsDto;
 import com.ruoyi.system.service.ICompanyReportsService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -39,7 +40,7 @@ public class CompanyReportsController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:list')")
     @GetMapping("/list")
-    public TableDataInfo list(CompanyReports companyReports)
+    public TableDataInfo list(CompanyReportsDto companyReports)
     {
         startPage();
         List<CompanyReports> list = companyReportsService.selectCompanyReportsList(companyReports);

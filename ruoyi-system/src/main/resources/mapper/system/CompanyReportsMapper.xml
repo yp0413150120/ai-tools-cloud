@@ -21,12 +21,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, company_name, listing_place, ipo_date, report_status, report, generator_tool, report_prompt, generator_model, origin_summary from company_reports
     </sql>
 
-    <select id="selectCompanyReportsList" parameterType="CompanyReports" resultMap="CompanyReportsResult">
+    <select id="selectCompanyReportsList" parameterType="CompanyReportsDto" resultMap="CompanyReportsResult">
         <include refid="selectCompanyReportsVo"/>
         <where>  
             <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
             <if test="listingPlace != null  and listingPlace != ''"> and listing_place = #{listingPlace}</if>
             <if test="ipoDate != null "> and ipo_date = #{ipoDate}</if>
+            <if test="ipoDateStart != null and ipoDateEnd != null "> and ipo_date between #{ipoDateStart} and #{ipoDateEnd}</if>
             <if test="reportStatus != null  and reportStatus != ''"> and report_status = #{reportStatus}</if>
             <if test="report != null  and report != ''"> and report = #{report}</if>
             <if test="generatorTool != null  and generatorTool != ''"> and generator_tool = #{generatorTool}</if>

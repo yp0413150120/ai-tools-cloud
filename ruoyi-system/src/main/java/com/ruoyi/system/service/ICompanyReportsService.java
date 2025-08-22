@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.CompanyReports;
+import com.ruoyi.system.domain.dto.CompanyReportsDto;
 
 /**
  * 公司报告Service接口
@@ -25,7 +26,7 @@ public interface ICompanyReportsService
      * @param companyReports 公司报告
      * @return 公司报告集合
      */
-    public List<CompanyReports> selectCompanyReportsList(CompanyReports companyReports);
+    public List<CompanyReports> selectCompanyReportsList(CompanyReportsDto companyReports);
 
     /**
      * 新增公司报告

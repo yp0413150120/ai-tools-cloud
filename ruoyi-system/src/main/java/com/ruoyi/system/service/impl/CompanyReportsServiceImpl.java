@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.CompanyReportsMapper;
 import com.ruoyi.system.domain.CompanyReports;
+import com.ruoyi.system.domain.dto.CompanyReportsDto;
 import com.ruoyi.system.service.ICompanyReportsService;
 
 /**
@@ -38,7 +39,7 @@ public class CompanyReportsServiceImpl implements ICompanyReportsService
      * @return 公司报告
      */
     @Override
-    public List<CompanyReports> selectCompanyReportsList(CompanyReports companyReports)
+    public List<CompanyReports> selectCompanyReportsList(CompanyReportsDto companyReports)
     {
         return companyReportsMapper.selectCompanyReportsList(companyReports);
     }
