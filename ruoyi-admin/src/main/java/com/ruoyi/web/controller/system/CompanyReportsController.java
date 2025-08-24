@@ -2,6 +2,10 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.annotation.Anonymous;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author ruoyi
  * @date 2025-08-20
  */
+@Api("公司报告管理")
 @RestController
 @RequestMapping("/system/companyReport")
 public class CompanyReportsController extends BaseController
@@ -38,7 +43,8 @@ public class CompanyReportsController extends BaseController
     /**
      * 查询公司报告列表
      */
-    @PreAuthorize("@ss.hasPermi('system:companyReport:list')")
+    @Anonymous
+    @ApiOperation("获取公司列表")
     @GetMapping("/list")
     public TableDataInfo list(CompanyReportsDto companyReports)
     {
@@ -51,9 +57,10 @@ public class CompanyReportsController extends BaseController
      * 导出公司报告列表
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:export')")
+    @ApiOperation("导出公司列表")
     @Log(title = "公司报告", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, CompanyReports companyReports)
+    public void export(HttpServletResponse response, CompanyReportsDto companyReports)
     {
         List<CompanyReports> list = companyReportsService.selectCompanyReportsList(companyReports);
         ExcelUtil<CompanyReports> util = new ExcelUtil<CompanyReports>(CompanyReports.class);
@@ -64,6 +71,7 @@ public class CompanyReportsController extends BaseController
      * 获取公司报告详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:query')")
+    @ApiOperation("获取公司报告详细信息")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") String id)
     {
@@ -75,6 +83,7 @@ public class CompanyReportsController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:add')")
     @Log(title = "公司报告", businessType = BusinessType.INSERT)
+    @ApiOperation("新增公司报告")
     @PostMapping
     public AjaxResult add(@RequestBody CompanyReports companyReports)
     {
@@ -86,6 +95,7 @@ public class CompanyReportsController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:edit')")
     @Log(title = "公司报告", businessType = BusinessType.UPDATE)
+    @ApiOperation("修改公司报告")
     @PutMapping
     public AjaxResult edit(@RequestBody CompanyReports companyReports)
     {
@@ -97,6 +107,7 @@ public class CompanyReportsController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:companyReport:remove')")
     @Log(title = "公司报告", businessType = BusinessType.DELETE)
+    @ApiOperation("修改公司报告")
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable String[] ids)
     {
